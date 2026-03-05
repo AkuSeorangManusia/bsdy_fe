@@ -76,6 +76,7 @@ export default function Navbar() {
                                         src={user.avatar_url}
                                         alt=""
                                         className="h-8 w-8 rounded-full"
+                                        referrerPolicy='no-referrer'
                                     />
                                 ) : (
                                     user.name?.charAt(0) || 'U'

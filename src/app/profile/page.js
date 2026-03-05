@@ -88,6 +88,7 @@ function ProfileContent() {
                                 src={user.avatar_url}
                                 alt=""
                                 className="h-16 w-16 rounded-full"
+                                referrerPolicy="no-referrer"
                             />
                         ) : (
                             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FD7979] text-2xl text-white">
