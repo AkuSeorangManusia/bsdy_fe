@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { authApi, contentApi, assetUrl } from '@/lib/api';
+import { authApi, contentApi } from '@/lib/api';
 import { useEffect, useState } from 'react';
 
 function HeroSection() {
@@ -157,7 +157,7 @@ function ContentSection() {
                             >
                                 {article.cover_image_url && (
                                     <img
-                                        src={assetUrl(article.cover_image_url)}
+                                        src={article.cover_image_url}
                                         alt={article.title}
                                         className="h-40 w-full object-cover"
                                     />
