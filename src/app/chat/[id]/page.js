@@ -105,9 +105,7 @@ function ChatViewContent({ chatId }) {
                                 {chat?.title || 'Chat'}
                             </h1>
                             <p className="text-xs text-gray-500">
-                                {chat?.chat_type === 'agentic'
-                                    ? '🤖 Agentic'
-                                    : '💬 Companion'}
+                                💬 AI Companion
                             </p>
                         </div>
                     </div>
@@ -119,9 +117,9 @@ function ChatViewContent({ chatId }) {
                 <div className="mx-auto max-w-4xl space-y-4">
                     {messages.length === 0 && (
                         <p className="py-10 text-center text-gray-500">
-                            {chat?.chat_type === 'agentic'
-                                ? 'Ask me to check your mood, generate reports, manage notes, or suggest coping strategies!'
-                                : "Hi! I'm here to listen and support you. How are you feeling today?"}
+                            Hi! I'm here to listen and support you. I can also
+                            check your mood data, generate reports, manage
+                            notes, or suggest coping strategies — just ask!
                         </p>
                     )}
                     {messages.map((msg) => (

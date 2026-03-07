@@ -58,35 +58,26 @@ function ChatListContent() {
                 <h1 className="text-3xl font-bold text-gray-900">AI Chat</h1>
             </div>
 
-            {/* New chat buttons */}
-            <div className="mb-8 grid gap-4 sm:grid-cols-2">
-                <button
-                    onClick={() => handleCreate('companion')}
-                    disabled={creating}
-                    className="rounded-2xl border border-[#FFCDC9] bg-white p-6 text-left transition hover:shadow-md disabled:opacity-50"
-                >
-                    <div className="mb-2 text-3xl">💬</div>
-                    <h3 className="font-semibold text-gray-900">
-                        Companion Chat
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                        Empathetic AI companion for conversation and emotional
-                        support
-                    </p>
-                </button>
+            <div className="mb-8 rounded-2xl bg-white p-6">
+                <h2 className="mb-3 text-lg text-center font-semibold text-gray-900">
+                    Good morning! How can we assist you today?
+                </h2>
+                <p className="text-center text-gray-500">
+                    We can provide support, answer questions, or just chat about
+                    anything on your mind. 
+                </p>
+                <p className="text-center text-gray-500">
+                    We could also help you set goals,
+                    track your mood, or suggest activities to improve your
+                    mental well-being. Just start a conversation and we'll be
+                    here to listen and help!
+                </p>
                 <button
                     onClick={() => handleCreate('agentic')}
                     disabled={creating}
-                    className="rounded-2xl border border-[#FFCDC9] bg-white p-6 text-left transition hover:shadow-md disabled:opacity-50"
+                    className="mx-auto mt-4 block rounded-full bg-[#FD7979] px-5 py-2 text-sm font-medium text-white hover:bg-[#FDACAC] disabled:opacity-50"
                 >
-                    <div className="mb-2 text-3xl">🤖</div>
-                    <h3 className="font-semibold text-gray-900">
-                        Agentic Chat
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                        AI with tools — can access mood data, generate reports,
-                        manage notes
-                    </p>
+                    {creating ? 'Creating...' : 'Start New Chat'}
                 </button>
             </div>
 
@@ -103,16 +94,13 @@ function ChatListContent() {
                             className="flex items-center justify-between rounded-2xl border border-[#FFCDC9] bg-white p-4 transition hover:shadow-md"
                         >
                             <div className="flex items-center gap-3">
-                                <span className="text-2xl">
-                                    {chat.chat_type === 'agentic' ? '🤖' : '💬'}
-                                </span>
+                                <span className="text-2xl">💬</span>
                                 <div>
                                     <h3 className="font-medium text-gray-900">
                                         {chat.title}
                                     </h3>
                                     <p className="text-sm text-gray-500">
-                                        {chat.chat_type} • {chat.message_count}{' '}
-                                        messages
+                                        {chat.message_count} messages
                                         {!chat.is_active && ' • closed'}
                                     </p>
                                 </div>
