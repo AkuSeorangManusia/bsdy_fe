@@ -2,19 +2,17 @@
 
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/context/AuthContext';
-import { authApi, onboardingApi, logsApi } from '@/lib/api';
+import { authApi, onboardingApi } from '@/lib/api';
 import { useState, useEffect } from 'react';
 
 function ProfileContent() {
     const { user, refreshUser, logout } = useAuth();
-    const [tab, setTab] = useState('profile'); // profile | baseline | logs
+    const [tab, setTab] = useState('profile'); // profile | baseline
     const [editing, setEditing] = useState(false);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState('');
     const [profileForm, setProfileForm] = useState({ name: '', birth: '' });
     const [baseline, setBaseline] = useState(null);
-    const [authLogs, setAuthLogs] = useState([]);
-    const [activityLogs, setActivityLogs] = useState([]);
 
     useEffect(() => {
         if (user) {
@@ -28,16 +26,6 @@ function ProfileContent() {
                 .getBaseline()
                 .then((d) => setBaseline(d.data))
                 .catch(() => {});
-        }
-        if (tab === 'logs') {
-            Promise.allSettled([logsApi.auth(), logsApi.activity()]).then(
-                ([a, b]) => {
-                    if (a.status === 'fulfilled')
-                        setAuthLogs(a.value.data?.data || []);
-                    if (b.status === 'fulfilled')
-                        setActivityLogs(b.value.data?.data || []);
-                },
-            );
         }
     }, [tab]);
 
@@ -61,7 +49,7 @@ function ProfileContent() {
             <h1 className="mb-6 text-3xl font-bold text-gray-900">Profile</h1>
 
             <div className="mb-6 flex gap-2">
-                {['profile', 'baseline', 'logs'].map((t) => (
+                {['profile', 'baseline'].map((t) => (
                     <button
                         key={t}
                         onClick={() => setTab(t)}
@@ -236,67 +224,7 @@ function ProfileContent() {
                 </div>
             )}
 
-            {tab === 'logs' && (
-                <div className="space-y-6">
-                    <div className="rounded-2xl border border-[#FFCDC9] bg-white p-6">
-                        <h2 className="mb-4 text-lg font-semibold text-gray-900">
-                            Auth Logs
-                        </h2>
-                        {authLogs.length > 0 ? (
-                            <div className="space-y-2">
-                                {authLogs.map((log) => (
-                                    <div
-                                        key={log.id}
-                                        className="flex items-center justify-between rounded-lg bg-[#FEEAC9]/30 px-3 py-2"
-                                    >
-                                        <span className="text-sm text-gray-700">
-                                            {log.action}
-                                        </span>
-                                        <span className="text-xs text-gray-500">
-                                            {new Date(
-                                                log.created_at,
-                                            ).toLocaleString()}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <p className="text-sm text-gray-500">
-                                No auth logs.
-                            </p>
-                        )}
-                    </div>
-                    <div className="rounded-2xl border border-[#FFCDC9] bg-white p-6">
-                        <h2 className="mb-4 text-lg font-semibold text-gray-900">
-                            Activity Logs
-                        </h2>
-                        {activityLogs.length > 0 ? (
-                            <div className="space-y-2">
-                                {activityLogs.map((log) => (
-                                    <div
-                                        key={log.id}
-                                        className="flex items-center justify-between rounded-lg bg-[#FEEAC9]/30 px-3 py-2"
-                                    >
-                                        <span className="text-sm text-gray-700">
-                                            [{log.feature}] {log.action}{' '}
-                                            {log.entity_type}
-                                        </span>
-                                        <span className="text-xs text-gray-500">
-                                            {new Date(
-                                                log.created_at,
-                                            ).toLocaleString()}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <p className="text-sm text-gray-500">
-                                No activity logs.
-                            </p>
-                        )}
-                    </div>
-                </div>
-            )}
+
         </div>
     );
 }

@@ -67,6 +67,22 @@ export default function Navbar() {
                             >
                                 Reports
                             </Link>
+                            {user.role === 'admin' && (
+                                <>
+                                    <Link
+                                        href="/admin/content"
+                                        className="text-sm font-medium text-[#FD7979] hover:text-[#FDACAC]"
+                                    >
+                                        Content
+                                    </Link>
+                                    <Link
+                                        href="/admin/logs"
+                                        className="text-sm font-medium text-[#FD7979] hover:text-[#FDACAC]"
+                                    >
+                                        Logs
+                                    </Link>
+                                </>
+                            )}
                             <Link
                                 href="/profile"
                                 className="text-sm text-gray-700 hover:text-[#FD7979]"
@@ -191,6 +207,24 @@ export default function Navbar() {
                                 >
                                     Reports
                                 </Link>
+                                {user.role === 'admin' && (
+                                    <>
+                                        <Link
+                                            href="/admin/content"
+                                            className="text-sm font-medium text-[#FD7979]"
+                                            onClick={() => setMenuOpen(false)}
+                                        >
+                                            Content (Admin)
+                                        </Link>
+                                        <Link
+                                            href="/admin/logs"
+                                            className="text-sm font-medium text-[#FD7979]"
+                                            onClick={() => setMenuOpen(false)}
+                                        >
+                                            Logs (Admin)
+                                        </Link>
+                                    </>
+                                )}
                                 <Link
                                     href="/profile"
                                     className="text-sm text-gray-700"

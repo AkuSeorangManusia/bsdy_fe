@@ -51,7 +51,9 @@ export async function api(path, options = {}) {
     const data = JSON.parse(text);
     if (!data.success) {
         const errMsg = data.message || data.error || 'API request failed';
-        throw new Error(typeof errMsg === 'string' ? errMsg : JSON.stringify(errMsg));
+        throw new Error(
+            typeof errMsg === 'string' ? errMsg : JSON.stringify(errMsg),
+        );
     }
     return data;
 }
@@ -59,7 +61,8 @@ export async function api(path, options = {}) {
 // auth
 export const authApi = {
     getGoogleUrl: () => api('/api/auth/google/url'),
-    googleCallback: (code) => api(`/api/auth/google/callback?code=${encodeURIComponent(code)}`),
+    googleCallback: (code) =>
+        api(`/api/auth/google/callback?code=${encodeURIComponent(code)}`),
     verifyEmail: (token) => api(`/api/auth/verify-email?token=${token}`),
     resendVerification: () =>
         api('/api/auth/resend-verification', { method: 'POST' }),
@@ -200,5 +203,13 @@ export const logsApi = {
         });
         if (feature) params.set('feature', feature);
         return api(`/api/logs/activity?${params}`);
+    },
+    admin: (page = 1, perPage = 20, feature) => {
+        const params = new URLSearchParams({
+            page: String(page),
+            per_page: String(perPage),
+        });
+        if (feature) params.set('feature', feature);
+        return api(`/api/logs/admin?${params}`);
     },
 };

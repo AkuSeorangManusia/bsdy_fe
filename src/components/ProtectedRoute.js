@@ -8,6 +8,7 @@ export default function ProtectedRoute({
     children,
     requireVerified = true,
     requireOnboarding = true,
+    requireAdmin = false,
 }) {
     const { user, loading } = useAuth();
     const router = useRouter();
@@ -29,7 +30,12 @@ export default function ProtectedRoute({
             router.push('/onboarding');
             return;
         }
-    }, [user, loading, router, requireVerified, requireOnboarding]);
+
+        if (requireAdmin && user.role !== 'admin') {
+            router.push('/dashboard');
+            return;
+        }
+    }, [user, loading, router, requireVerified, requireOnboarding, requireAdmin]);
 
     if (loading) {
         return (
@@ -42,6 +48,7 @@ export default function ProtectedRoute({
     if (!user) return null;
     if (requireVerified && !user.email_verified) return null;
     if (requireOnboarding && !user.onboarding_completed) return null;
+    if (requireAdmin && user.role !== 'admin') return null;
 
     return children;
 }

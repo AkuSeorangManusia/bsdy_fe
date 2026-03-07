@@ -2,6 +2,7 @@
 
 import { contentApi } from '@/lib/api';
 import Link from 'next/link';
+import { marked } from 'marked';
 import { use, useEffect, useState } from 'react';
 
 export default function BlogPostPage({ params }) {
@@ -79,7 +80,7 @@ export default function BlogPostPage({ params }) {
 
             <div
                 className="prose max-w-none text-gray-700"
-                dangerouslySetInnerHTML={{ __html: article.body }}
+                dangerouslySetInnerHTML={{ __html: marked.parse(article.body || '') }}
             />
         </div>
     );
