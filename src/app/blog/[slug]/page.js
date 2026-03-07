@@ -1,6 +1,6 @@
 'use client';
 
-import { contentApi } from '@/lib/api';
+import { contentApi, assetUrl } from '@/lib/api';
 import Link from 'next/link';
 import { marked } from 'marked';
 import { use, useEffect, useState } from 'react';
@@ -52,7 +52,7 @@ export default function BlogPostPage({ params }) {
 
             {article.cover_image_url && (
                 <img
-                    src={article.cover_image_url}
+                    src={assetUrl(article.cover_image_url)}
                     alt={article.title}
                     className="mb-6 h-64 w-full rounded-2xl object-cover"
                 />

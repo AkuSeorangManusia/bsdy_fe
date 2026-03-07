@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { contentApi } from '@/lib/api';
+import { contentApi, assetUrl } from '@/lib/api';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 function AdminContentEditor() {
@@ -142,7 +142,7 @@ function AdminContentEditor() {
                     </label>
                     {article?.cover_image_url && (
                         <img
-                            src={article.cover_image_url}
+                            src={assetUrl(article.cover_image_url)}
                             alt="Cover"
                             className="mb-3 h-48 w-full rounded-lg object-cover"
                         />

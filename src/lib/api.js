@@ -1,5 +1,11 @@
 const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+export function assetUrl(url) {
+    if (!url) return url;
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    return `${API_BASE}${url.startsWith('/') ? '' : '/'}${url}`;
+}
+
 export function getToken() {
     if (typeof window === 'undefined') return null;
     return localStorage.getItem('token');
