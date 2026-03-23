@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
-  reactCompiler: true,
-  async rewrites() {
-    return [
-      {
-        source: '/uploads/:path*',
-        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/:path*`,
-      },
-    ];
-  },
+    /* config options here */
+    reactCompiler: true,
+    async rewrites() {
+        return [
+            {
+                source: "/uploads/:path*",
+                destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/:path*`,
+            },
+        ];
+    },
 };
 
 export default nextConfig;

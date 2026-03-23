@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { contentApi } from '@/lib/api';
-import Link from 'next/link';
-import { marked } from 'marked';
-import { use, useEffect, useState } from 'react';
+import { contentApi } from "@/lib/api";
+import Link from "next/link";
+import { marked } from "marked";
+import { use, useEffect, useState } from "react";
 
 export default function BlogPostPage({ params }) {
     const { slug } = use(params);
     const [article, setArticle] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     useEffect(() => {
         contentApi
@@ -29,11 +29,11 @@ export default function BlogPostPage({ params }) {
 
     if (error) {
         return (
-            <div className="mx-auto max-w-3xl px-4 py-8">
+            <div className="app-section max-w-3xl py-8">
                 <p className="text-red-500">{error}</p>
                 <Link
                     href="/#content"
-                    className="mt-4 inline-block text-[#FD7979] hover:underline"
+                    className="mt-4 inline-block text-[#d46161] hover:underline"
                 >
                     ← Back to Articles
                 </Link>
@@ -42,46 +42,51 @@ export default function BlogPostPage({ params }) {
     }
 
     return (
-        <div className="mx-auto max-w-3xl px-4 py-8">
+        <div className="app-section max-w-3xl py-7">
             <Link
                 href="/#content"
-                className="mb-6 inline-block text-sm text-[#FD7979] hover:underline"
+                className="mb-6 inline-block text-sm text-[#d46161] hover:underline"
             >
                 ← Back to Articles
             </Link>
 
-            {article.cover_image_url && (
-                <img
-                    src={article.cover_image_url}
-                    alt={article.title}
-                    className="mb-6 h-64 w-full rounded-2xl object-cover"
+            <article className="glass-card-strong overflow-hidden p-6 md:p-8">
+                {article.cover_image_url && (
+                    /* biome-ignore lint/performance/noImgElement: dynamic external URL from API */
+                    <img
+                        src={article.cover_image_url}
+                        alt={article.title}
+                        className="mb-6 h-64 w-full rounded-2xl object-cover"
+                    />
+                )}
+
+                <h1 className="mb-4 text-3xl font-bold text-[#2f1f1f]">
+                    {article.title}
+                </h1>
+
+                {article.published_at && (
+                    <p className="mb-6 text-sm text-[#9a7f7f]">
+                        Published{" "}
+                        {new Date(article.published_at).toLocaleDateString(
+                            "en-US",
+                            { year: "numeric", month: "long", day: "numeric" },
+                        )}
+                    </p>
+                )}
+
+                {article.excerpt && (
+                    <p className="mb-6 text-lg italic text-soft">
+                        {article.excerpt}
+                    </p>
+                )}
+
+                <div
+                    className="prose prose-headings:text-[#2f1f1f] prose-a:text-[#d46161] max-w-none text-[#5b4545]"
+                    dangerouslySetInnerHTML={{
+                        __html: marked.parse(article.body || ""),
+                    }}
                 />
-            )}
-
-            <h1 className="mb-4 text-3xl font-bold text-gray-900">
-                {article.title}
-            </h1>
-
-            {article.published_at && (
-                <p className="mb-6 text-sm text-gray-500">
-                    Published{' '}
-                    {new Date(article.published_at).toLocaleDateString(
-                        'en-US',
-                        { year: 'numeric', month: 'long', day: 'numeric' },
-                    )}
-                </p>
-            )}
-
-            {article.excerpt && (
-                <p className="mb-6 text-lg text-gray-600 italic">
-                    {article.excerpt}
-                </p>
-            )}
-
-            <div
-                className="prose max-w-none text-gray-700"
-                dangerouslySetInnerHTML={{ __html: marked.parse(article.body || '') }}
-            />
+            </article>
         </div>
     );
 }

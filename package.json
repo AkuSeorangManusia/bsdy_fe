@@ -1,26 +1,30 @@
 {
-  "name": "bsdy_fe",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
-  },
-  "dependencies": {
-    "@tailwindcss/typography": "^0.5.19",
-    "dotenv": "^17.3.1",
-    "marked": "^17.0.4",
-    "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.2.0",
-    "@tailwindcss/postcss": "^4",
-    "babel-plugin-react-compiler": "1.0.0",
-    "tailwindcss": "^4"
-  }
+    "name": "bsdy_fe",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "biome check",
+        "format": "biome format --write"
+    },
+    "dependencies": {
+        "@tailwindcss/typography": "^0.5.19",
+        "clsx": "^2.1.1",
+        "dotenv": "^17.3.1",
+        "framer-motion": "^12.38.0",
+        "lucide-react": "^0.577.0",
+        "marked": "^17.0.4",
+        "next": "16.1.6",
+        "react": "19.2.3",
+        "react-dom": "19.2.3",
+        "tailwind-merge": "^3.5.0"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.2.0",
+        "@tailwindcss/postcss": "^4",
+        "babel-plugin-react-compiler": "1.0.0",
+        "tailwindcss": "^4"
+    }
 }

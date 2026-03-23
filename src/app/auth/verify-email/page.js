@@ -27,13 +27,18 @@ function VerifyEmailInner() {
                 })
                 .catch((err) => {
                     setStatus("error");
-                    const errorMsg = err?.message || err?.error || "Verification failed";
-                    setMessage(typeof errorMsg === "string" ? errorMsg : JSON.stringify(errorMsg));
+                    const errorMsg =
+                        err?.message || err?.error || "Verification failed";
+                    setMessage(
+                        typeof errorMsg === "string"
+                            ? errorMsg
+                            : JSON.stringify(errorMsg),
+                    );
                 });
         } else {
             setStatus("waiting");
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams]);
 
     const handleResend = async () => {
@@ -43,7 +48,11 @@ function VerifyEmailInner() {
             setMessage("Verification email sent! Check your inbox.");
         } catch (err) {
             const errorMsg = err?.message || err?.error || "Failed to resend";
-            setMessage(typeof errorMsg === "string" ? errorMsg : JSON.stringify(errorMsg));
+            setMessage(
+                typeof errorMsg === "string"
+                    ? errorMsg
+                    : JSON.stringify(errorMsg),
+            );
         } finally {
             setResending(false);
         }
@@ -51,7 +60,9 @@ function VerifyEmailInner() {
 
     useEffect(() => {
         if (user?.email_verified) {
-            router.push(user.onboarding_completed ? "/dashboard" : "/onboarding");
+            router.push(
+                user.onboarding_completed ? "/dashboard" : "/onboarding",
+            );
         }
     }, [user, router]);
 
@@ -60,15 +71,17 @@ function VerifyEmailInner() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[#FEEAC9]/20 px-4">
-            <div className="w-full max-w-md rounded-2xl border border-[#FFCDC9] bg-white p-8 text-center shadow-lg">
+        <div className="app-section flex min-h-[calc(100vh-82px)] items-center justify-center py-10">
+            <div className="glass-card-strong w-full max-w-md p-8 text-center">
                 <div className="mb-4 text-5xl">📧</div>
-                <h1 className="mb-4 text-2xl font-bold text-gray-900">Verify Your Email</h1>
+                <h1 className="mb-4 text-2xl font-bold text-[#2f1f1f]">
+                    Verify Your Email
+                </h1>
 
                 {status === "verifying" && (
                     <div className="flex flex-col items-center gap-3">
                         <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#FD7979] border-t-transparent" />
-                        <p className="text-gray-600">Verifying...</p>
+                        <p className="text-soft">Verifying...</p>
                     </div>
                 )}
 
@@ -79,22 +92,37 @@ function VerifyEmailInner() {
                 {status === "error" && (
                     <div>
                         <p className="mb-4 text-red-500">{message}</p>
-                        <button onClick={handleResend} disabled={resending} className="rounded-full bg-[#FD7979] px-6 py-2 text-white hover:bg-[#FDACAC] disabled:opacity-50">
-                            {resending ? "Sending..." : "Resend Verification Email"}
+                        <button
+                            onClick={handleResend}
+                            disabled={resending}
+                            className="btn-primary px-6 py-2 disabled:opacity-50"
+                        >
+                            {resending
+                                ? "Sending..."
+                                : "Resend Verification Email"}
                         </button>
                     </div>
                 )}
 
                 {status === "waiting" && (
                     <div>
-                        <p className="mb-2 text-gray-600">
-                            We&apos;ve sent a verification link to <strong>{user?.email}</strong>.
+                        <p className="mb-2 text-soft">
+                            We&apos;ve sent a verification link to{" "}
+                            <strong>{user?.email}</strong>.
                         </p>
-                        <p className="mb-6 text-sm text-gray-500">
+                        <p className="mb-6 text-sm text-[#9a7f7f]">
                             Click the link in your email to verify your account.
                         </p>
-                        {message && <p className="mb-4 text-sm text-green-600">{message}</p>}
-                        <button onClick={handleResend} disabled={resending} className="rounded-full bg-[#FD7979] px-6 py-2 text-white hover:bg-[#FDACAC] disabled:opacity-50">
+                        {message && (
+                            <p className="mb-4 text-sm text-green-600">
+                                {message}
+                            </p>
+                        )}
+                        <button
+                            onClick={handleResend}
+                            disabled={resending}
+                            className="btn-primary px-6 py-2 disabled:opacity-50"
+                        >
                             {resending ? "Sending..." : "Resend Email"}
                         </button>
                     </div>
@@ -108,7 +136,7 @@ export default function VerifyEmailPage() {
     return (
         <Suspense
             fallback={
-                <div className="flex min-h-screen items-center justify-center">
+                <div className="app-section flex min-h-[calc(100vh-82px)] items-center justify-center py-10">
                     <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#FD7979] border-t-transparent" />
                 </div>
             }
