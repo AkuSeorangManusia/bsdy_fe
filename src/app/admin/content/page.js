@@ -121,7 +121,7 @@ function AdminContentPage() {
                 {/* Back Navigation */}
                 <motion.button
                     variants={itemVariant}
-                    onClick={() => router.back()}
+                    onClick={() => router.push('/dashboard')}
                     className="group mb-6 inline-flex items-center gap-2 rounded-full bg-white/60 px-5 py-2.5 text-sm font-bold text-slate-600 shadow-sm backdrop-blur-md ring-1 ring-slate-200/50 transition-all hover:bg-white hover:text-[#FD7979] hover:shadow-md hover:ring-[#FDACAC]/50"
                 >
                     <ArrowLeft

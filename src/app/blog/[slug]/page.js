@@ -1,15 +1,19 @@
-"use client";
+'use client';
 
-import { contentApi } from "@/lib/api";
-import Link from "next/link";
-import { marked } from "marked";
-import { use, useEffect, useState } from "react";
+import { contentApi } from '@/lib/api';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { marked } from 'marked';
+import { use, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft } from 'lucide-react';
 
 export default function BlogPostPage({ params }) {
     const { slug } = use(params);
+    const router = useRouter();
     const [article, setArticle] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const [error, setError] = useState('');
 
     useEffect(() => {
         contentApi
@@ -29,64 +33,69 @@ export default function BlogPostPage({ params }) {
 
     if (error) {
         return (
-            <div className="app-section max-w-3xl py-8">
+            <div className="mx-auto max-w-3xl px-4 py-8">
                 <p className="text-red-500">{error}</p>
-                <Link
-                    href="/#content"
-                    className="mt-4 inline-block text-[#d46161] hover:underline"
+                <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    onClick={() => router.back()}
+                    className="group mb-6 inline-flex items-center gap-2 rounded-full bg-white/60 px-5 py-2.5 text-sm font-bold text-slate-600 shadow-sm backdrop-blur-md ring-1 ring-slate-200/50 transition-all hover:bg-white hover:text-[#FD7979] hover:shadow-md hover:ring-[#FDACAC]/50"
                 >
-                    ← Back to Articles
-                </Link>
+                    <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                    Back
+                </motion.button>
             </div>
         );
     }
 
     return (
-        <div className="app-section max-w-3xl py-7">
-            <Link
-                href="/#content"
-                className="mb-6 inline-block text-sm text-[#d46161] hover:underline"
+        <div className="mx-auto max-w-3xl px-4 py-8">
+            <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                onClick={() => router.back()}
+                className="group mb-6 inline-flex items-center gap-2 rounded-full bg-white/60 px-5 py-2.5 text-sm font-bold text-slate-600 shadow-sm backdrop-blur-md ring-1 ring-slate-200/50 transition-all hover:bg-white hover:text-[#FD7979] hover:shadow-md hover:ring-[#FDACAC]/50"
             >
-                ← Back to Articles
-            </Link>
+                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                Back
+            </motion.button>
 
-            <article className="glass-card-strong overflow-hidden p-6 md:p-8">
-                {article.cover_image_url && (
-                    /* biome-ignore lint/performance/noImgElement: dynamic external URL from API */
-                    <img
-                        src={article.cover_image_url}
-                        alt={article.title}
-                        className="mb-6 h-64 w-full rounded-2xl object-cover"
-                    />
-                )}
-
-                <h1 className="mb-4 text-3xl font-bold text-[#2f1f1f]">
-                    {article.title}
-                </h1>
-
-                {article.published_at && (
-                    <p className="mb-6 text-sm text-[#9a7f7f]">
-                        Published{" "}
-                        {new Date(article.published_at).toLocaleDateString(
-                            "en-US",
-                            { year: "numeric", month: "long", day: "numeric" },
-                        )}
-                    </p>
-                )}
-
-                {article.excerpt && (
-                    <p className="mb-6 text-lg italic text-soft">
-                        {article.excerpt}
-                    </p>
-                )}
-
-                <div
-                    className="prose prose-headings:text-[#2f1f1f] prose-a:text-[#d46161] max-w-none text-[#5b4545]"
-                    dangerouslySetInnerHTML={{
-                        __html: marked.parse(article.body || ""),
-                    }}
+            {article.cover_image_url && (
+                <img
+                    src={article.cover_image_url}
+                    alt={article.title}
+                    className="mb-6 h-64 w-full rounded-2xl object-cover"
                 />
-            </article>
+            )}
+
+            <h1 className="mb-4 text-5xl font-bold text-gray-900">
+                {article.title}
+            </h1>
+
+            {article.published_at && (
+                <p className="mb-6 text-sm text-gray-500">
+                    Published{' '}
+                    {new Date(article.published_at).toLocaleDateString(
+                        'en-US',
+                        { year: 'numeric', month: 'long', day: 'numeric' },
+                    )}
+                </p>
+            )}
+
+            {article.excerpt && (
+                <p className="mb-6 text-lg text-gray-600 italic">
+                    {article.excerpt}
+                </p>
+            )}
+
+            <div className="my-10 h-px bg-gray-300" />
+
+            <div
+                className="prose max-w-none text-gray-700"
+                dangerouslySetInnerHTML={{
+                    __html: marked.parse(article.body || ''),
+                }}
+            />
         </div>
     );
 }

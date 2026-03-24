@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useAuth } from "@/context/AuthContext";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, LogOut, User, ChevronRight } from "lucide-react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, LogOut, User, ChevronRight } from 'lucide-react';
 
 export default function Navbar() {
     const { user, logout } = useAuth();
@@ -19,7 +19,7 @@ export default function Navbar() {
             <div className="mx-auto flex h-20 w-[min(1280px,100%-2rem)] items-center justify-between">
                 {/* Logo Section */}
                 <Link
-                    href={user ? "/dashboard" : "/"}
+                    href={'/'}
                     onClick={closeMenu}
                     className="group flex items-center transition-all duration-300"
                 >
@@ -39,7 +39,14 @@ export default function Navbar() {
                     {user ? (
                         <>
                             {/* Main App Links */}
-                            {["Dashboard", "Mood", "Chat", "Notes", "Analytics", "Reports"].map((item) => (
+                            {[
+                                'Dashboard',
+                                'Mood',
+                                'Chat',
+                                'Notes',
+                                'Analytics',
+                                'Reports',
+                            ].map((item) => (
                                 <Link
                                     key={item}
                                     href={`/${item.toLowerCase()}`}
@@ -48,9 +55,9 @@ export default function Navbar() {
                                     {item}
                                 </Link>
                             ))}
-                            
+
                             {/* Admin Links */}
-                            {user.role === "admin" && (
+                            {user.role === 'admin' && (
                                 <div className="flex items-center gap-1 ml-2 pl-2 border-l border-[#FEEAC9]">
                                     <Link
                                         href="/admin/content"
@@ -66,9 +73,9 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                             )}
-                            
+
                             <div className="h-8 w-[2px] bg-[#FEEAC9] mx-2 rounded-full" />
-                            
+
                             {/* Profile Entry */}
                             <Link
                                 href="/profile"
@@ -83,18 +90,21 @@ export default function Navbar() {
                                     />
                                 ) : (
                                     <div className="h-10 w-10 flex items-center justify-center rounded-full bg-gradient-to-br from-[#FDACAC] to-[#FD7979] text-white font-bold shadow-sm">
-                                        {user.name?.charAt(0) || "U"}
+                                        {user.name?.charAt(0) || 'U'}
                                     </div>
                                 )}
                             </Link>
-                            
+
                             {/* Logout Action */}
                             <button
                                 onClick={logout}
                                 className="group ml-2 flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white bg-slate-800 rounded-full transition-all duration-300 hover:bg-[#FD7979] shadow-md hover:shadow-xl hover:shadow-[#FD7979]/30 active:scale-95"
                             >
                                 <span>Logout</span>
-                                <LogOut size={16} className="group-hover:translate-x-1 transition-transform" />
+                                <LogOut
+                                    size={16}
+                                    className="group-hover:translate-x-1 transition-transform"
+                                />
                             </button>
                         </>
                     ) : (
@@ -159,7 +169,7 @@ export default function Navbar() {
                 {menuOpen && (
                     <motion.div
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
+                        animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute top-full left-0 w-full overflow-hidden bg-white/95 backdrop-blur-3xl shadow-2xl shadow-[#FD7979]/10 border-b border-[#FEEAC9]/60 md:hidden"
@@ -178,17 +188,28 @@ export default function Navbar() {
                                             />
                                         ) : (
                                             <div className="h-12 w-12 flex items-center justify-center rounded-full bg-gradient-to-br from-[#FDACAC] to-[#FD7979] text-white font-bold text-lg shadow-md">
-                                                {user.name?.charAt(0) || "U"}
+                                                {user.name?.charAt(0) || 'U'}
                                             </div>
                                         )}
                                         <div className="flex-1 overflow-hidden">
-                                            <p className="font-bold text-slate-800 truncate">{user.name || "User"}</p>
-                                            <p className="text-xs text-slate-500 font-medium truncate">{user.email}</p>
+                                            <p className="font-bold text-slate-800 truncate">
+                                                {user.name || 'User'}
+                                            </p>
+                                            <p className="text-xs text-slate-500 font-medium truncate">
+                                                {user.email}
+                                            </p>
                                         </div>
                                     </div>
 
                                     {/* Mobile Main Links Mapping */}
-                                    {["Dashboard", "Mood", "Chat", "Notes", "Analytics", "Reports"].map((item) => (
+                                    {[
+                                        'Dashboard',
+                                        'Mood',
+                                        'Chat',
+                                        'Notes',
+                                        'Analytics',
+                                        'Reports',
+                                    ].map((item) => (
                                         <Link
                                             key={item}
                                             href={`/${item.toLowerCase()}`}
@@ -196,14 +217,19 @@ export default function Navbar() {
                                             onClick={closeMenu}
                                         >
                                             <span>{item}</span>
-                                            <ChevronRight size={18} className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all" />
+                                            <ChevronRight
+                                                size={18}
+                                                className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all"
+                                            />
                                         </Link>
                                     ))}
 
                                     {/* Mobile Admin Block */}
-                                    {user.role === "admin" && (
+                                    {user.role === 'admin' && (
                                         <div className="mt-4 p-4 rounded-2xl bg-[#FDACAC]/10 border border-[#FDACAC]/30 flex flex-col gap-2">
-                                            <p className="text-xs font-black uppercase text-[#FD7979] tracking-wider mb-1">Admin Tools</p>
+                                            <p className="text-xs font-black uppercase text-[#FD7979] tracking-wider mb-1">
+                                                Admin Tools
+                                            </p>
                                             <Link
                                                 href="/admin/content"
                                                 className="flex items-center justify-between rounded-xl p-3 text-sm font-bold text-[#FD7979] bg-white/50 hover:bg-white transition-colors"
@@ -230,12 +256,20 @@ export default function Navbar() {
                                         className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all active:scale-[0.98]"
                                         onClick={closeMenu}
                                     >
-                                        <span className="flex items-center gap-3"><User size={20} /> My Profile</span>
-                                        <ChevronRight size={18} className="text-slate-300 group-hover:text-[#FD7979] transition-colors" />
+                                        <span className="flex items-center gap-3">
+                                            <User size={20} /> My Profile
+                                        </span>
+                                        <ChevronRight
+                                            size={18}
+                                            className="text-slate-300 group-hover:text-[#FD7979] transition-colors"
+                                        />
                                     </Link>
 
                                     <button
-                                        onClick={() => { closeMenu(); logout(); }}
+                                        onClick={() => {
+                                            closeMenu();
+                                            logout();
+                                        }}
                                         className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FD7979] p-4 text-base font-bold text-white shadow-lg shadow-[#FD7979]/20 transition-all hover:bg-[#FDACAC] active:scale-[0.98]"
                                     >
                                         <LogOut size={20} />
@@ -244,14 +278,38 @@ export default function Navbar() {
                                 </>
                             ) : (
                                 <>
-                                    <a href="#about" onClick={closeMenu} className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all">
-                                        About Blessedly <ChevronRight size={18} className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all" />
+                                    <a
+                                        href="#about"
+                                        onClick={closeMenu}
+                                        className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all"
+                                    >
+                                        About Blessedly{' '}
+                                        <ChevronRight
+                                            size={18}
+                                            className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all"
+                                        />
                                     </a>
-                                    <a href="#content" onClick={closeMenu} className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all">
-                                        Articles & Resources <ChevronRight size={18} className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all" />
+                                    <a
+                                        href="#content"
+                                        onClick={closeMenu}
+                                        className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all"
+                                    >
+                                        Articles & Resources{' '}
+                                        <ChevronRight
+                                            size={18}
+                                            className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all"
+                                        />
                                     </a>
-                                    <a href="#contact" onClick={closeMenu} className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all">
-                                        Contact Us <ChevronRight size={18} className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all" />
+                                    <a
+                                        href="#contact"
+                                        onClick={closeMenu}
+                                        className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all"
+                                    >
+                                        Contact Us{' '}
+                                        <ChevronRight
+                                            size={18}
+                                            className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all"
+                                        />
                                     </a>
                                 </>
                             )}
