@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
+import { authApi } from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, LogOut, User, ChevronRight } from 'lucide-react';
 
@@ -13,6 +14,15 @@ export default function Navbar() {
 
     // helper logic to close menu on mobile
     const closeMenu = () => setMenuOpen(false);
+
+    const handleSignUp = async () => {
+        try {
+            const data = await authApi.getGoogleUrl();
+            window.location.href = data.url;
+        } catch (err) {
+            console.error("Failed to get Google URL:", err);
+        }
+    };
 
     return (
         <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-[#FEEAC9]/60 shadow-[0_8px_30px_rgb(253,172,172,0.08)] transition-all">
@@ -128,6 +138,12 @@ export default function Navbar() {
                             >
                                 Contact
                             </a>
+                            <button
+                                onClick={handleSignUp}
+                                className="ml-2 px-6 py-2.5 text-sm font-bold text-white bg-[#FD7979] rounded-full transition-all duration-300 hover:bg-[#FDACAC] shadow-md hover:shadow-xl hover:shadow-[#FD7979]/30 active:scale-95"
+                            >
+                                Sign Up
+                            </button>
                         </>
                     )}
                 </div>
@@ -174,7 +190,7 @@ export default function Navbar() {
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute top-full left-0 w-full overflow-hidden bg-white/95 backdrop-blur-3xl shadow-2xl shadow-[#FD7979]/10 border-b border-[#FEEAC9]/60 md:hidden"
                     >
-                        <div className="flex flex-col gap-2 p-6 mx-auto w-[min(100%,400px)]">
+                        <div className="flex flex-col gap-2 p-6 mx-auto w-[min(100%,400px)] max-h-[calc(100dvh-5rem)] overflow-y-auto pb-8">
                             {user ? (
                                 <>
                                     {/* User Info Mobile Header */}
@@ -311,6 +327,15 @@ export default function Navbar() {
                                             className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all"
                                         />
                                     </a>
+                                    <button
+                                        onClick={() => {
+                                            closeMenu();
+                                            handleSignUp();
+                                        }}
+                                        className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FD7979] p-4 text-base font-bold text-white shadow-lg shadow-[#FD7979]/20 transition-all hover:bg-[#FDACAC] active:scale-[0.98]"
+                                    >
+                                        Sign Up
+                                    </button>
                                 </>
                             )}
                         </div>
