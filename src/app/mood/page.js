@@ -122,8 +122,10 @@ function MoodContent() {
             const res = await moodApi.create(payload);
             setTodayMood(res.data);
             setMoodLogged(true);
-            setMessage("Mood saved successfully!");
-            setTimeout(() => setMessage(""), 3000);
+            setMessage("Mood saved successfully! Redirecting to dashboard...");
+            setTimeout(() => {
+                router.push("/dashboard");
+            }, 1500);
             
             // Refresh history
             const histRes = await moodApi.list();

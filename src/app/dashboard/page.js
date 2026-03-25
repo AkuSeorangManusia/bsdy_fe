@@ -395,7 +395,7 @@ function DashboardContent() {
                                   <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-[#FD7979] opacity-20 rounded-full blur-2xl pointer-events-none" />
                                   <div className="bg-slate-900 rounded-[22px] p-6 relative z-10 border border-slate-800">
                                       <h2 className="text-white font-bold mb-4 flex items-center gap-2">
-                                          <span>⚡</span> Quick Launch
+                                          Quick Launch
                                       </h2>
                                       <div className="grid grid-cols-2 gap-3">
                                           <Link

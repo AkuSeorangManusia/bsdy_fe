@@ -15,7 +15,8 @@ import {
     UploadCloud,
     CheckCircle2,
     AlertCircle,
-    LayoutTemplate
+    LayoutTemplate,
+    Edit3
 } from "lucide-react";
 
 // Animation Variants
@@ -77,8 +78,14 @@ function AdminContentEditor() {
                 status,
             });
             setArticle(data.data);
-            setSuccess("Article saved successfully!");
-            setTimeout(() => setSuccess(""), 3000);
+            setSuccess("Article saved successfully! Redirecting...");
+            setTimeout(() => {
+                if (data.data.slug) {
+                    router.push(`/blog/${data.data.slug}`);
+                } else {
+                    router.push('/admin/content');
+                }
+            }, 1000);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -208,13 +215,16 @@ function AdminContentEditor() {
                     <div className="lg:col-span-2 space-y-6">
                         <motion.div variants={itemVariant} className="bg-white/70 backdrop-blur-xl border border-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-[#FDACAC]/5">
                             {/* Title Input */}
-                            <div className="mb-6">
+                            <div className="mb-8">
+                                <label className="flex items-center gap-2 text-sm font-bold text-slate-500 mb-3">
+                                    <Edit3 size={16} className="text-[#FDACAC]" /> Article Title
+                                </label>
                                 <input
                                     type="text"
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    className="w-full bg-transparent border-none text-4xl sm:text-5xl font-black text-slate-800 placeholder-slate-300 focus:outline-none focus:ring-0 p-0"
-                                    placeholder="Story Title..."
+                                    className="w-full bg-slate-50/50 border border-slate-200 text-3xl sm:text-4xl font-black text-slate-800 placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-[#FEEAC9] focus:border-[#FDACAC] p-4 rounded-2xl transition-all shadow-inner"
+                                    placeholder="Enter your story title here..."
                                 />
                             </div>
 
