@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { authApi, contentApi } from "@/lib/api";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Heart, Activity, Brain, MessageSquare, LineChart, Shield, Mail, ChevronRight, Calendar, Smartphone, Sparkles } from "lucide-react";
@@ -232,14 +233,18 @@ function ContentSection() {
                             Latest <span className="text-[#FDACAC]">Resources</span>
                         </motion.h2>
                     </div>
-                    <motion.button 
+                    <motion.div 
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="flex items-center gap-2 text-[#FD7979] font-bold hover:gap-4 transition-all"
                     >
-                        View All Articles <ChevronRight size={20} />
-                    </motion.button>
+                        <Link 
+                            href="/blog"
+                            className="flex items-center gap-2 text-[#FD7979] font-bold hover:gap-4 transition-all"
+                        >
+                            View All Articles <ChevronRight size={20} />
+                        </Link>
+                    </motion.div>
                 </div>
 
                 {articles.length > 0 ? (
