@@ -56,6 +56,7 @@ export default function Navbar() {
                                 'Notes',
                                 'Analytics',
                                 'Reports',
+                                'Blog',
                             ].map((item) => (
                                 <Link
                                     key={item}
@@ -126,12 +127,12 @@ export default function Navbar() {
                             >
                                 About
                             </a>
-                            <a
-                                href="#content"
+                            <Link
+                                href="/blog"
                                 className="px-5 py-2.5 text-sm font-semibold text-slate-600 transition-all rounded-full hover:text-[#FD7979] hover:bg-[#FEEAC9]/40"
                             >
-                                Articles
-                            </a>
+                                Blog
+                            </Link>
                             <a
                                 href="#contact"
                                 className="px-5 py-2.5 text-sm font-semibold text-slate-600 transition-all rounded-full hover:text-[#FD7979] hover:bg-[#FEEAC9]/40"
@@ -225,6 +226,7 @@ export default function Navbar() {
                                         'Notes',
                                         'Analytics',
                                         'Reports',
+                                        'Blog',
                                     ].map((item) => (
                                         <Link
                                             key={item}
@@ -305,17 +307,17 @@ export default function Navbar() {
                                             className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all"
                                         />
                                     </a>
-                                    <a
-                                        href="#content"
+                                    <Link
+                                        href="/blog"
                                         onClick={closeMenu}
                                         className="group flex items-center justify-between rounded-2xl p-4 text-base font-bold text-slate-700 hover:bg-[#FDACAC]/10 hover:text-[#FD7979] transition-all"
                                     >
-                                        Articles & Resources{' '}
+                                        Blog{' '}
                                         <ChevronRight
                                             size={18}
                                             className="text-slate-300 group-hover:text-[#FD7979] group-hover:translate-x-1 transition-all"
                                         />
-                                    </a>
+                                    </Link>
                                     <a
                                         href="#contact"
                                         onClick={closeMenu}
